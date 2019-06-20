@@ -2,16 +2,29 @@ require "Cliente"
 require "Produto"
 require "ItemVenda"
 require "Venda"
+require "Database"
 
-julio = Cliente:new("Júlio", "Rua André Belo", "MG123456", "01/01/1900")
-pedro = Cliente:new("Pedro", "Rua Tal", "MG88856", "10/01/1900")
-biscoito = Produto:new(1, "Biscoito", 10.50)
-suco = Produto:new(2, "Suco", 2.50)
+Database:init()    -- chamar isso apenas uma vez
+
+Database:addCliente( Cliente:new("Júlio", "Rua André Belo", "MG123456", "01/01/1900") )
+Database:addCliente( Cliente:new("Pedro", "Rua Tal", "MG88856", "10/01/1900") )
+
+Database:addProduto( Produto:new(1, "Biscoito", 10.50) )
+Database:addProduto( Produto:new(2, "Suco", 2.50) )
 
 itensVenda = {}
-itensVenda[1] = ItemVenda:new(biscoito, 4)
-itensVenda[2] = ItemVenda:new(suco, 1)
+table.insert(itensVenda, ItemVenda:new(Database:getProduto(1), 3))  -- 3 biscoitos
+table.insert(itensVenda, ItemVenda:new(Database:getProduto(2), 1))  -- 1 suco
 
-venda = Venda:new(1, "19/06/2019", itensVenda, julio)
+-- venda de 3 biscoitos e 1 suco para Pedro
+Database:addVenda(Venda:new(1, "19/06/2019", itensVenda, Database:getCliente("MG88856")))
 
-print("Preço total da Venda para", venda:getCliente():getNome(), ":", venda:total())
+itensVenda = {}
+table.insert(itensVenda, ItemVenda:new(Database:getProduto(1), 1))  -- 1 biscoito
+table.insert(itensVenda, ItemVenda:new(Database:getProduto(2), 10))  -- 10 sucos
+
+-- venda de 1 biscoito e 10 sucos para Júlio
+Database:addVenda(Venda:new(2, "20/06/2019", itensVenda, Database:getCliente("MG123456")))
+
+print("Preço total da Venda para", Database:getVenda(1):getCliente():getNome(), ":", Database:getVenda(1):total())
+print("Preço total da Venda para", Database:getVenda(2):getCliente():getNome(), ":", Database:getVenda(2):total())
