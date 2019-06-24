@@ -30,7 +30,8 @@ function Menu:printTextoCadastrar() end
 function Menu:printTextoRemover() end
 function Menu:printTextoEditar() end
 function Menu:listaItens(itens) end
-function Menu:inputCadastroEdicao() end
+function Menu:inputCadastro() end
+function Menu:inputEdicao() end
 function Menu:inputRemover() end
 
 function Menu:exibeMenuItem()
