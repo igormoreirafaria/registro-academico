@@ -3,7 +3,9 @@ require "Produto"
 require "ItemVenda"
 require "Venda"
 require "Database"
+require "MenuCliente"
 require "MenuProduto"
+require "ControladoraCliente"
 require "ControladoraProduto"
 
 function manipulaMenuItem(menuItem, controladora)
@@ -24,7 +26,9 @@ end
 
 Database:init()                                    -- chamar isso apenas uma vez
 menuPrincipal = Menu:new()
+menuCliente = MenuCliente:new()
 menuProduto = MenuProduto:new()
+controladoraCliente = ControladoraCliente:new()
 controladoraProduto = ControladoraProduto:new()
 
 opcao = 1
@@ -33,7 +37,7 @@ while opcao ~= 9 do
     if opcao == 1 then
         manipulaMenuItem(menuProduto, controladoraProduto)
     elseif opcao == 2 then
-        -- manipulaMenuItem(menuCliente, controladoraCliente)
+        manipulaMenuItem(menuCliente, controladoraCliente)
     elseif opcao == 3 then
         -- manipulaMenuItem(menuVenda, controladoraVenda)
     end

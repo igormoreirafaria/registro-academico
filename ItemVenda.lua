@@ -15,3 +15,7 @@ end
 function ItemVenda:total()                             -- este método sobrescreve de Totalizavel
     return self.valor * self.quantidade
 end
+
+function ItemVenda:getQuantidade()
+    return self.quantidade
+end

@@ -1,12 +1,12 @@
 require "Pessoa"
 Cliente = Pessoa:new()
 
-function Cliente:new(nome, endereco, rg, dataNacimento)
+function Cliente:new(nome, endereco, rg, dataNascimento)
     obj = Pessoa:new(nome, endereco)
     setmetatable(obj, self)
     self.__index = self
     obj.rg = rg or ""
-    obj.dataNacimento = dataNacimento or ""
+    obj.dataNascimento = dataNascimento or ""
     return obj
 end
 
@@ -14,14 +14,14 @@ function Cliente:setRg(rg)
     self.rg = rg
 end
 
-function Cliente:setDataNacimento(data)
-    self.dataNacimento = data
+function Cliente:setDataNascimento(data)
+    self.dataNascimento = data
 end
 
 function Cliente:getRg()
     return self.rg
 end
 
-function Cliente:getDataNacimento()
-    return self.dataNacimento
+function Cliente:getDataNascimento()
+    return self.dataNascimento
 end

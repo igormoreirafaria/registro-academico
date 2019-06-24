@@ -18,7 +18,7 @@ function Produto:setNome(nome)
     self.nome = nome
 end
 
-function Produto:setValor(Valor)
+function Produto:setValor(valor)
     self.valor = valor
 end
 
