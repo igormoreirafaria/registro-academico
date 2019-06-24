@@ -11,7 +11,24 @@ function ControladoraProduto:new()
 end
 
 function ControladoraProduto:cadastrar(menu)
-    Database:addProduto(Produto:new(menu:inputCadastroEdicao()))
+    novoProduto = Produto:new(menu:inputCadastroEdicao())
+    flag = false
+    produtos = Database:getProdutos()
+    
+    if produtos ~= nil then
+        for key, produto in pairs(produtos) do
+            if produto:getCodigo() == novoProduto:getCodigo() then
+                flag = true
+            end
+        end
+        if flag == true then
+            print("\nUm produto com o mesmo codigo ja existe. Tente um codigo diferente.")
+        else
+            Database:addProduto(novoProduto)
+        end
+    else
+        Database:addProduto(novoProduto)
+    end
 end
 
 function ControladoraProduto:editar(menu)
