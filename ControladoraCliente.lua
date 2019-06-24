@@ -11,7 +11,12 @@ function ControladoraCliente:new()
 end
 
 function ControladoraCliente:cadastrar(menu)
-    Database:addCliente(Cliente:new(menu:inputCadastroEdicao()))
+    novoCliente = Cliente:new(menu:inputCadastroEdicao())   
+    if Database:getCliente(novoCliente:getRg()) == nil then
+        Database:addCliente(novoCliente)
+    else
+        print("\nUm ciente com o mesmo rg já existe. Tente inserir este ciente com um rg diferente!")
+    end
 end
 
 function ControladoraCliente:editar(menu)

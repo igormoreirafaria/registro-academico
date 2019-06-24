@@ -9,6 +9,7 @@ function Database:init()                    -- todos os atributos pertencem a ta
     self.clientes = {}
     self.produtos = {}
     self.vendas = {}
+    self.produtosId = 0
 end
 
 -------------- Funções de inserção ----------------
@@ -18,6 +19,7 @@ function Database:addCliente(cliente)
 end
 
 function Database:addProduto(produto)
+    produto:setCodigo(self:incrementaProdutosId())
     table.insert(self.produtos, produto)
 end
 
@@ -103,7 +105,8 @@ function Database:editProduto(id, nome, valor)
     for i = 1,#self.produtos do
         if self.produtos[i]:getCodigo() == id then
             self.produtos[i]:setNome(nome)
-            self.produtos[i]:setValor(valor) 
+            self.produtos[i]:setValor(valor)
+            break
         end
     end
 end
@@ -114,6 +117,7 @@ function Database:editCliente(nome, endereco, rg, data)
             self.clientes[i]:setNome(nome)
             self.clientes[i]:setEndereco(endereco)
             self.clientes[i]:setDataNascimento(data)
+            break
         end
     end
 end
@@ -124,6 +128,14 @@ function Database:editVenda(id, data, itensVenda, cliente)
             self.vendas[i]:setData(data)
             self.vendas[i]:setCliente(cliente)
             self.vendas[i]:setItensVenda(itensVenda)
+            break
         end
     end
+end
+
+------- Função de auto incrementar id de produto --------
+
+function Database:incrementaProdutosId()
+    self.produtosId = self.produtosId + 1
+    return self.produtosId
 end

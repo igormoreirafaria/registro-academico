@@ -31,13 +31,34 @@ function MenuProduto:listaItens(itens)
     end
 end
 
-function MenuProduto:inputCadastroEdicao()
-    io.write("\nDigite o código do produto: ")
-    codigo = tonumber(io.read())
+function MenuProduto:inputCadastro()
+    codigo = nil   
     io.write("Digite o nome do produto: ")
     nome = io.read()
     io.write("Digite o valor do produto: ")
-    valor = tonumber(io.read())
+    str = io.read()
+    if string.find(str, ",") then
+        valor, n = str:gsub(",",".")
+        valor = tonumber(valor)
+    else
+        valor = tonumber(str)
+    end
+    return codigo, nome, valor
+end
+
+function MenuProduto:inputEdicao()
+    io.write("Digite o código do produto: ")
+    codigo = tonumber(io.read())   
+    io.write("Digite o nome do produto: ")
+    nome = io.read()
+    io.write("Digite o valor do produto: ")
+    str = io.read()
+    if string.find(str, ",") then
+        valor, n = str:gsub(",",".")
+        valor = tonumber(valor)
+    else
+        valor = tonumber(str)
+    end
     return codigo, nome, valor
 end
 
