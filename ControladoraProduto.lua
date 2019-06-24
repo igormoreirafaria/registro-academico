@@ -19,6 +19,7 @@ function ControladoraProduto:cadastrar(menu)
         for key, produto in pairs(produtos) do
             if produto:getCodigo() == novoProduto:getCodigo() then
                 flag = true
+                break;
             end
         end
         if flag == true then
