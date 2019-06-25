@@ -4,7 +4,7 @@ require "Totalizavel"
 
 Venda = Totalizavel:new()
 
-function Venda:new(numero, data, itensVenda, cliente)
+function Venda:new(data, itensVenda, cliente, numero)
     local obj = Totalizavel:new()
     setmetatable(obj, self)
     self.__index = self

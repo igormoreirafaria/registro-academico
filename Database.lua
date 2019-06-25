@@ -10,6 +10,7 @@ function Database:init()                    -- todos os atributos pertencem a ta
     self.produtos = {}
     self.vendas = {}
     self.produtosId = 0
+    self.vendasId = 0
 end
 
 -------------- Funções de inserção ----------------
@@ -19,11 +20,14 @@ function Database:addCliente(cliente)
 end
 
 function Database:addProduto(produto)
-    produto:setCodigo(self:incrementaProdutosId())
+    self.produtosId = self.produtosId + 1
+    produto:setCodigo(self.produtosId)
     table.insert(self.produtos, produto)
 end
 
 function Database:addVenda(venda)
+    self.vendasId = self.vendasId + 1
+    venda:setNumero(self.vendasId)
     table.insert(self.vendas, venda)
 end
 
@@ -76,27 +80,30 @@ function Database:removeProduto(id)
     for i = 1,#self.produtos do
         if self.produtos[i]:getCodigo() == id then
             table.remove(self.produtos, i)
-            break
+            return true
         end
     end
+    return false
 end
 
 function Database:removeCliente(rg)
     for i = 1,#self.clientes do
         if self.clientes[i]:getRg() == rg then
             table.remove(self.clientes, i)
-            break
+            return true
         end
     end
+    return false
 end
 
 function Database:removeVenda(id)
     for i = 1,#self.vendas do
         if self.vendas[i]:getNumero() == id then
             table.remove(self.vendas, i)
-            break
+            return true
         end
     end
+    return false
 end
 
 --- Funções que editam elementos das listas ----
@@ -131,11 +138,4 @@ function Database:editVenda(id, data, itensVenda, cliente)
             break
         end
     end
-end
-
-------- Função de auto incrementar id de produto --------
-
-function Database:incrementaProdutosId()
-    self.produtosId = self.produtosId + 1
-    return self.produtosId
 end

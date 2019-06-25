@@ -25,3 +25,7 @@ end
 function Cliente:getDataNascimento()
     return self.dataNascimento
 end
+
+function Cliente:toString()
+    return "RG: " .. self.rg .. ", Nome: " .. self.nome .. ", Endereço: " .. self.endereco .. ", Nascimento: " .. self.dataNascimento
+end

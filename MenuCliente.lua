@@ -24,13 +24,6 @@ function MenuCliente:printTextoEditar()
     print("editar um cliente")
 end
 
-function MenuCliente:listaItens(itens)
-    print("\nClientes:")
-    for i = 1,#itens do
-        io.write("   Nome: ", itens[i]:getNome(), ", RG: ", itens[i]:getRg(), ", Endereço: ", itens[i]:getEndereco(), ", Data de nascimento: ", itens[i]:getDataNascimento(), "\n")
-    end
-end
-
 function MenuCliente:inputCadastroEdicao()
     ------ Fiz essa pra vocês verem se fazer esse tratamento fica melhor
     -------aqui no MenuCliente onde é feita os io.read() ou se fica melhor

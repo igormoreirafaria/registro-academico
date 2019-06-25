@@ -1,6 +1,6 @@
 Produto = {codigo, nome, valor}
 
-function Produto:new(codigo, nome, valor)
+function Produto:new(nome, valor, codigo)
     obj = {}
     obj.codigo = codigo or 0
     obj.nome = nome or ""
@@ -32,4 +32,8 @@ end
 
 function Produto:getValor()
     return self.valor
+end
+
+function Produto:toString()
+    return "Código: " .. self.codigo .. ", Nome: " .. self.nome .. ", Valor: R$" .. self.valor
 end
