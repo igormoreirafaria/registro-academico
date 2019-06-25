@@ -11,7 +11,6 @@ function ControladoraCliente:new()
 end
 
 function ControladoraCliente:cadastrar(menu)
-
     local status, res1, res2, res3, res4 = pcall( 
         function() 
             res1, res2, res3, res4 = menu:inputCadastroEdicao() 

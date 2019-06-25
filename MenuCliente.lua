@@ -32,6 +32,27 @@ function MenuCliente:listaItens(itens)
 end
 
 function MenuCliente:inputCadastroEdicao()
+    ------ Fiz essa pra vocês verem se fazer esse tratamento fica melhor
+    -------aqui no MenuCliente onde é feita os io.read() ou se fica melhor
+    -------no ControladorCliente(atual)
+    -- local status, nome, endereco, rg, data = pcall(
+    --     function()
+    --         io.write("\nDigite o RG do cliente: ")
+    --         rg = io.read()
+    --         io.write("Digite o nome do cliente: ")
+    --         nome = io.read()
+    --         io.write("Digite o endereço do cliente: ")
+    --         endereco = io.read()
+    --         io.write("Digite a data de nascimento do cliente: ")
+    --         data = io.read()
+    --         return nome, endereco, rg, data
+    --     end
+    -- )
+    -- if status then
+    --     return nome, endereco, rg, data
+    -- else
+    --     print("ERRO: " .. nome)
+    -- end
     io.write("\nDigite o RG do cliente: ")
     rg = io.read()
     io.write("Digite o nome do cliente: ")
