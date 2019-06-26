@@ -44,7 +44,7 @@ end
 function MenuCliente:inputData()
     io.write("      Digite a data de nascimento do cliente (Ex.: 01/01/1970): ")
     local nascimento = io.read()
-    if #nascimento ~= 11 then
+    if #nascimento == 10 then
         if string.sub(nascimento, 3, 3) == '/' and string.sub(nascimento, 6, 6) == '/' then 
             return nascimento
         else

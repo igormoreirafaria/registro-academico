@@ -12,29 +12,49 @@ function ControladoraVenda:new()
 end
 
 function ControladoraVenda:cadastrar(menu)
-    local data, codigoVenda, quantidadeVenda, rg = menu:inputCadastro()
-    itensVenda = {}
-    for i = 1, #codigoVenda do
-        itensVenda[i] = ItemVenda:new(Database:getProduto(codigoVenda[i]), quantidadeVenda[i])
+    local rg = menu:inputRg()
+    if Database:getCliente(rg) ~= nil then
+        local data, codigoVenda, quantidadeVenda = menu:inputCadastro()
+        itensVenda = {}
+        for i = 1, #codigoVenda do
+            itensVenda[i] = ItemVenda:new(Database:getProduto(codigoVenda[i]), quantidadeVenda[i])
+        end
+        Database:addVenda(Venda:new(data, itensVenda, Database:getCliente(rg)))
+    else
+        menu:erroCodNaoCadastrado()
+        self:cadastrar(menu)
     end
-    Database:addVenda(Venda:new(data, itensVenda, Database:getCliente(rg)))
 end
 
 function ControladoraVenda:editar(menu)
     local cod = menu:inputEdicao()
     if Database:getVenda(cod) ~= nil then
-        Database:editVenda(cod, menu:inputCadastro())
+        local rg = menu:inputRg()
+        while Database:getCliente(rg) == nil do
+            menu:erroCodNaoCadastrado()
+            rg = menu:inputRg()
+        end
+        local data, codigoVenda, quantidadeVenda = menu:inputCadastro()
+        local itensVenda = {}
+        for i = 1, #codigoVenda do
+            itensVenda[i] = ItemVenda:new(Database:getProduto(codigoVenda[i]), quantidadeVenda[i])
+        end
+        Database:editVenda(cod, data, itensVenda, Database:getCliente(rg))
         menu:sucesso()
     else
         menu:erro()
+        self:editar(menu)
     end
 end
 
 function ControladoraVenda:remover(menu)
-    if Database:removeVenda(menu:inputRemover()) == false then
-        menu:erro()
-    else
+    local cod = menu:inputRemover()
+    if Database:getVenda(cod) ~= nil then
+        Database:removeVenda(cod)
         menu:sucesso()
+    else
+        menu:erroCodNaoCadastrado()
+        self:remover(menu)
     end
 end
 

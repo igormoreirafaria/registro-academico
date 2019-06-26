@@ -10,7 +10,7 @@ function Venda:new(data, itensVenda, cliente, numero)
     self.__index = self
     obj.numero = numero or 0
     obj.data = data or ""
-    obj.itensVenda = itensVenda or ItemVenda:new()
+    obj.itensVenda = itensVenda or {}
     obj.cliente = cliente or Cliente:new()
     return obj
 end
@@ -40,11 +40,11 @@ function Venda:getNumero()
 end
 
 function Venda:setItensVenda(ItensVenda)
-    self.ItensVenda = ItensVenda
+    self.itensVenda = ItensVenda
 end
 
 function Venda:getItensVenda()
-    return self.ItensVenda
+    return self.itensVenda
 end
 
 function Venda:setData(data)
@@ -56,5 +56,5 @@ function Venda:getData()
 end
 
 function Venda:toString()
-    return "Código: " .. self.numero .. ", Cliente: " .. self.cliente:getNome() .. ", Valor: R$" .. self:total()
+    return "Código: " .. self.numero .. ", Cliente: " .. self.cliente:getNome() .. ", Valor: R$" .. self:total() .. ", Data: " .. self.data
 end
