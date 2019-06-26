@@ -5,8 +5,10 @@ require "Venda"
 require "Database"
 require "MenuCliente"
 require "MenuProduto"
+require "MenuVenda"
 require "ControladoraCliente"
 require "ControladoraProduto"
+require "ControladoraVenda"
 
 function manipulaMenuItem(menuItem, controladora)
     local opcao = 1
@@ -28,8 +30,10 @@ Database:init()                                    -- chamar isso apenas uma vez
 menuPrincipal = Menu:new()
 menuCliente = MenuCliente:new()
 menuProduto = MenuProduto:new()
+menuVenda = MenuVenda:new()
 controladoraCliente = ControladoraCliente:new()
 controladoraProduto = ControladoraProduto:new()
+controladoraVenda = ControladoraVenda:new()
 
 opcao = 1
 while opcao ~= 9 do
@@ -39,6 +43,7 @@ while opcao ~= 9 do
     elseif opcao == 2 then
         manipulaMenuItem(menuCliente, controladoraCliente)
     elseif opcao == 3 then
-        -- manipulaMenuItem(menuVenda, controladoraVenda)
+        manipulaMenuItem(menuVenda, controladoraVenda)
     end
 end
+

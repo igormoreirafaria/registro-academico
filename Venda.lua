@@ -54,3 +54,7 @@ end
 function Venda:getData()
     return self.data
 end
+
+function Venda:toString()
+    return "Código: " .. self.numero .. ", Cliente: " .. self.cliente:getNome() .. ", Valor: R$" .. self:total()
+end
