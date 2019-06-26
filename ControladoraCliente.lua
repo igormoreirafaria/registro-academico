@@ -38,7 +38,7 @@ function ControladoraCliente:remover(menu)
         Database:removeCliente(rg)
         menu:sucesso()
     else
-        menu:erroRg()
+        menu:erroRgNaoCadastrado()
         self:remover(menu)
     end
 end

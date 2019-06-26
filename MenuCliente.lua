@@ -14,7 +14,7 @@ function MenuCliente:inputRg()
     if #rg > 0 and #rg <9 then
         return rg
     else
-        self:erroRg()
+        print("\n      RG Inválido!\n")
         return self:inputRg()
     end
 end
@@ -25,7 +25,7 @@ function MenuCliente:inputNome()
     if #nome > 0 and #nome < 32 then
         return nome
     else
-        self:erroNome()
+        print("\n      Nome inválido!\n")
         return self:inputNome()
     end
 end
@@ -36,7 +36,7 @@ function MenuCliente:inputEndereco()
     if #endereco > 0 and #endereco < 32 then
         return endereco
     else
-        self:erroEndereco()
+        print("\n      Endereço Inválido!\n")
         return self:inputEndereco()
     end
 end
@@ -48,11 +48,11 @@ function MenuCliente:inputData()
         if string.sub(nascimento, 3, 3) == '/' and string.sub(nascimento, 6, 6) == '/' then 
             return nascimento
         else
-            self:erroData()
+            print("\n      Data Inválida!\n")
             return self:inputData()
         end
     else
-        self:erroData()
+        print("\n      Data Inválida!\n")
         return self:inputData()
     end
 end
@@ -82,26 +82,10 @@ function MenuCliente:printTextoEditar()
     print("editar um cliente")
 end
 
-function Menu:erroRg()
-    print("\n      RG Inválido!\n")
-end
-
 function Menu:erroRgNaoCadastrado()
     print("\n      RG não Cadastrado!\n")
 end
 
 function Menu:erroRgCadastrado()
     print("\n      RG já Cadastrado!\n")
-end
-
-function Menu:erroNome()
-    print("\n      Nome inválido!\n")
-end
-
-function Menu:erroEndereco()
-    print("\n      Endereço Inválido!\n")
-end
-
-function Menu:erroData()
-    print("\n      Data Inválida!\n")
 end
