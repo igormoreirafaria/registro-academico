@@ -49,16 +49,16 @@ function Menu:listaItens(lista)
             print("     " .. lista[i]:toString())
         end
     else
-        print("     Não existem registros no sistema!")
+        print("\n       Não existem registros no sistema!")
     end
 end
 
 function Menu:erro()
-    print("     Identificador Inválido!")
+    print("\n       Identificador Inválido!")
 end
 
 function Menu:sucesso()
-    print("     Operação realizada com sucesso!")
+    print("\n       Operação realizada com sucesso!")
 end
 
 

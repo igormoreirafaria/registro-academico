@@ -11,57 +11,35 @@ function ControladoraCliente:new()
 end
 
 function ControladoraCliente:cadastrar(menu)
-    local status, res1, res2, res3, res4 = pcall( 
-        function() 
-            res1, res2, res3, res4 = menu:inputCadastroEdicao() 
-            return res1, res2, res3, res4 
-        end
-    )
-    if status then
-        novoCliente = Cliente:new(res1, res2, res3, res4)
-        if Database:getCliente(novoCliente:getRg()) == nil then
-            Database:addCliente(novoCliente)
-        else
-            print("\nUm ciente com o mesmo rg já existe. Tente inserir este ciente com um rg diferente!") 
-        end
+    rg = menu:inputRg()
+    if Database:getCliente(rg) == nil then
+        Database:addCliente(Cliente:new(rg, menu:inputCadastroEdicao()))
+        menu:sucesso()
     else
-        print("ERROR: " .. res1)
+        menu:erroRgCadastrado()
+        self:cadastrar(menu)
     end
 end
 
 function ControladoraCliente:editar(menu)
-    local status, res1, res2, res3, res4 = pcall( 
-        function() 
-            res1, res2, res3, res4 = menu:inputCadastroEdicao() 
-            return res1, res2, res3, res4 
-        end
-    )
-    if status then
-        if Database:getCliente(res3) == nil then
-            print("\nEste Rg não é válido ou o cliente não foi cadastrado. Digite um Rg válido!")
-        else
-            Database:editCliente(res1,res2,res3,res4)
-        end
+    rg = menu:inputRg()
+    if Database:getCliente(rg) ~= nil then
+        Database:editCliente(rg,menu:inputCadastroEdicao())
+        menu:sucesso()
     else
-        print("ERROR: " .. res1)
+        menu:erroRgNaoCadastrado()
+        self:editar(menu)
     end
 end
 
 function ControladoraCliente:remover(menu)
-    local status, res1 = pcall( 
-        function() 
-            res1 = menu:inputRemover() 
-            return res1 
-        end
-    )
-    if status then
-        if Database:getCliente(res1) == nil then
-            print("\nEste Rg não é válido ou o cliente não foi cadastrado. Digite um Rg válido!")
-        else
-            Database:removeCliente(res1)
-        end
+    rg = menu:inputRemover()
+    if Database:getCliente(rg) ~= nil then
+        Database:removeCliente(rg)
+        menu:sucesso()
     else
-        print("ERROR: " .. res1)
+        menu:erroRg()
+        self:remover(menu)
     end
 end
 

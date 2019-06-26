@@ -118,7 +118,7 @@ function Database:editProduto(id, nome, valor)
     end
 end
 
-function Database:editCliente(nome, endereco, rg, data)
+function Database:editCliente(rg, nome, endereco, data)
     for i = 1,#self.clientes do
         if self.clientes[i]:getRg() == rg then
             self.clientes[i]:setNome(nome)

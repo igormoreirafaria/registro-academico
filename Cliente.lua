@@ -1,7 +1,7 @@
 require "Pessoa"
 Cliente = Pessoa:new()
 
-function Cliente:new(nome, endereco, rg, dataNascimento)
+function Cliente:new(rg, nome, endereco, dataNascimento)
     obj = Pessoa:new(nome, endereco)
     setmetatable(obj, self)
     self.__index = self

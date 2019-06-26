@@ -8,6 +8,64 @@ function MenuCliente:new()
     return obj
 end
 
+function MenuCliente:inputRg()
+    io.write("      Digite o RG do cliente: ")
+    local rg = io.read()
+    if #rg > 0 and #rg <9 then
+        return rg
+    else
+        self:erroRg()
+        return self:inputRg()
+    end
+end
+
+function MenuCliente:inputNome()
+    io.write("      Digite o nome do cliente: ")
+    local nome = io.read()
+    if #nome > 0 and #nome < 32 then
+        return nome
+    else
+        self:erroNome()
+        return self:inputNome()
+    end
+end
+
+function MenuCliente:inputEndereco()
+    io.write("      Digite o endereço do cliente: ")
+    local endereco = io.read()
+    if #endereco > 0 and #endereco < 32 then
+        return endereco
+    else
+        self:erroEndereco()
+        return self:inputEndereco()
+    end
+end
+
+function MenuCliente:inputData()
+    io.write("      Digite a data de nascimento do cliente (Ex.: 01/01/1970): ")
+    local nascimento = io.read()
+    if #nascimento ~= 11 then
+        if string.sub(nascimento, 3, 3) == '/' and string.sub(nascimento, 6, 6) == '/' then 
+            return nascimento
+        else
+            self:erroData()
+            return self:inputData()
+        end
+    else
+        self:erroData()
+        return self:inputData()
+    end
+end
+
+function MenuCliente:inputCadastroEdicao()
+    return self:inputNome(), self:inputEndereco(), self:inputData()
+end
+
+function MenuCliente:inputRemover()
+    io.write("      Digite o RG referente ao cliente que deseja remover: ")
+    return io.read()
+end
+
 function MenuCliente:printTextoListar()
     print("listar os clientes")
 end
@@ -24,40 +82,26 @@ function MenuCliente:printTextoEditar()
     print("editar um cliente")
 end
 
-function MenuCliente:inputCadastroEdicao()
-    ------ Fiz essa pra vocês verem se fazer esse tratamento fica melhor
-    -------aqui no MenuCliente onde é feita os io.read() ou se fica melhor
-    -------no ControladorCliente(atual)
-    -- local status, nome, endereco, rg, data = pcall(
-    --     function()
-    --         io.write("\nDigite o RG do cliente: ")
-    --         rg = io.read()
-    --         io.write("Digite o nome do cliente: ")
-    --         nome = io.read()
-    --         io.write("Digite o endereço do cliente: ")
-    --         endereco = io.read()
-    --         io.write("Digite a data de nascimento do cliente: ")
-    --         data = io.read()
-    --         return nome, endereco, rg, data
-    --     end
-    -- )
-    -- if status then
-    --     return nome, endereco, rg, data
-    -- else
-    --     print("ERRO: " .. nome)
-    -- end
-    io.write("\nDigite o RG do cliente: ")
-    rg = io.read()
-    io.write("Digite o nome do cliente: ")
-    nome = io.read()
-    io.write("Digite o endereço do cliente: ")
-    endereco = io.read()
-    io.write("Digite a data de nascimento do cliente: ")
-    data = io.read()
-    return nome, endereco, rg, data
+function Menu:erroRg()
+    print("\n      RG Inválido!\n")
 end
 
-function MenuCliente:inputRemover()
-    io.write("\nDigite o RG referente ao cliente que deseja remover: ")
-    return io.read()
+function Menu:erroRgNaoCadastrado()
+    print("\n      RG não Cadastrado!\n")
+end
+
+function Menu:erroRgCadastrado()
+    print("\n      RG já Cadastrado!\n")
+end
+
+function Menu:erroNome()
+    print("\n      Nome inválido!\n")
+end
+
+function Menu:erroEndereco()
+    print("\n      Endereço Inválido!\n")
+end
+
+function Menu:erroData()
+    print("\n      Data Inválida!\n")
 end
