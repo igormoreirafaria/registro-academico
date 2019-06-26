@@ -12,7 +12,7 @@ function ControladoraVenda:new()
 end
 
 function ControladoraVenda:cadastrar(menu)
-    data, codigoVenda, quantidadeVenda, rg = menu:inputCadastro()
+    local data, codigoVenda, quantidadeVenda, rg = menu:inputCadastro()
     itensVenda = {}
     for i = 1, #codigoVenda do
         itensVenda[i] = ItemVenda:new(Database:getProduto(codigoVenda[i]), quantidadeVenda[i])

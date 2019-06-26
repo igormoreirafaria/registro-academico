@@ -9,7 +9,7 @@ function MenuVenda:new()
 end
 
 function MenuVenda:inputCadastro()
-    local status, res1, res2, res3 = pcall(
+    local status, res1, res2, res3, res4 = pcall(
         function()
             io.write("\n      Digite a data da venda: ")
             data = io.read()
@@ -29,7 +29,7 @@ function MenuVenda:inputCadastro()
         end
     )
     if status then
-        return res1, res2, res3
+        return res1, res2, res3, res4
     else
         print("      Valor inválido! Por favor, informe os dados novamente!\n")
         return self:inputCadastro()
