@@ -44,11 +44,11 @@ function MenuVenda:inputQuantidadeItensDistintos()
             return quantidade
         end
     )
-    if status then
+    if status and quantidade > 0 then
         return quantidade
     else
         print("\n       Quantidade Inválida!\n")
-        return self:inputQuantidade()
+        return self:inputQuantidadeItensDistintos()
     end
 end
 
@@ -60,7 +60,7 @@ function MenuVenda:inputQuantidade()
             return quantidade
         end
     )
-    if status then
+    if status and quantidade > 0 then
         return quantidade
     else
         print("\n       Quantidade Inválida!\n")
@@ -68,7 +68,7 @@ function MenuVenda:inputQuantidade()
     end
 end
 
-function MenuVenda:inputCodigoVenda()
+function MenuVenda:inputCodigoProduto()
     local status, codigo = pcall(
         function()
             io.write("        Digite o código do produto: ")
@@ -79,21 +79,9 @@ function MenuVenda:inputCodigoVenda()
     if status then
         return codigo
     else
-        print("\n       Código Inválida!\n")
-        return self:inputCodigoVenda()
+        print("\n       Código Inválido!\n")
+        return self:inputCodigoProduto()
     end
-end
-
-function MenuVenda:inputCadastro()
-    data = self:inputData()
-    quantidade = self:inputQuantidadeItensDistintos()
-    codigoVenda = {}
-    quantidadeVenda = {}
-    for i = 1, quantidade do
-        codigoVenda[i] = self:inputCodigoVenda()
-        quantidadeVenda[i] = self:inputQuantidade()
-    end
-    return data, codigoVenda, quantidadeVenda
 end
 
 function MenuVenda:inputEdicao()
@@ -144,4 +132,12 @@ end
 
 function Menu:erroCodNaoCadastrado()
     print("\n      RG não Cadastrado!\n")
+end
+
+function Menu:erroProdutoNaoCadastrado()
+    print("\n      Produto não Cadastrado!\n")
+end
+
+function Menu:erroQuantidadeInvalida()
+print("\n      Quantidade Inválida!\n")
 end

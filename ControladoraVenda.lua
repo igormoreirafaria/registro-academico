@@ -14,10 +14,21 @@ end
 function ControladoraVenda:cadastrar(menu)
     local rg = menu:inputRg()
     if Database:getCliente(rg) ~= nil then
-        local data, codigoVenda, quantidadeVenda = menu:inputCadastro()
-        itensVenda = {}
-        for i = 1, #codigoVenda do
-            itensVenda[i] = ItemVenda:new(Database:getProduto(codigoVenda[i]), quantidadeVenda[i])
+        local quantidade = menu:inputQuantidadeItensDistintos()
+        local codigoProduto = {}
+        local quantidadeVenda = {}
+        for i = 1, quantidade do
+            codigoProduto[i] = menu:inputCodigoProduto()
+            while Database:getProduto(codigoProduto[i]) == nil do
+                menu:erroProdutoNaoCadastrado()
+                codigoProduto[i] = menu:inputCodigoProduto()
+            end
+            quantidadeVenda[i] = menu:inputQuantidade()
+        end
+        local data = menu:inputData()
+        local itensVenda = {}
+        for i = 1, #codigoProduto do
+            itensVenda[i] = ItemVenda:new(Database:getProduto(codigoProduto[i]), quantidadeVenda[i])
         end
         Database:addVenda(Venda:new(data, itensVenda, Database:getCliente(rg)))
     else
@@ -34,10 +45,21 @@ function ControladoraVenda:editar(menu)
             menu:erroCodNaoCadastrado()
             rg = menu:inputRg()
         end
-        local data, codigoVenda, quantidadeVenda = menu:inputCadastro()
+        local quantidade = menu:inputQuantidadeItensDistintos()
+        local codigoProduto = {}
+        local quantidadeVenda = {}
+        for i = 1, quantidade do
+            codigoProduto[i] = menu:inputCodigoProduto()
+            while Database:getProduto(codigoProduto[i]) == nil do
+                menu:erroProdutoNaoCadastrado()
+                codigoProduto[i] = menu:inputCodigoProduto()
+            end
+            quantidadeVenda[i] = menu:inputQuantidade()
+        end
+        local data = menu:inputData()
         local itensVenda = {}
-        for i = 1, #codigoVenda do
-            itensVenda[i] = ItemVenda:new(Database:getProduto(codigoVenda[i]), quantidadeVenda[i])
+        for i = 1, #codigoProduto do
+            itensVenda[i] = ItemVenda:new(Database:getProduto(codigoProduto[i]), quantidadeVenda[i])
         end
         Database:editVenda(cod, data, itensVenda, Database:getCliente(rg))
         menu:sucesso()

@@ -19,3 +19,11 @@ end
 function ItemVenda:getQuantidade()
     return self.quantidade
 end
+
+function ItemVenda:getProduto()
+    return self.produto
+end
+
+function ItemVenda:getValor()
+    return self.valor
+end

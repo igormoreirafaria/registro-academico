@@ -55,6 +55,15 @@ function Venda:getData()
     return self.data
 end
 
-function Venda:toString()
-    return "Código: " .. self.numero .. ", Cliente: " .. self.cliente:getNome() .. ", Valor: R$" .. self:total() .. ", Data: " .. self.data
+function Venda:getProdutos()
+    local produtos = ""
+    for i, itemVenda in pairs(self.itensVenda) do
+        produtos = produtos .. itemVenda:getQuantidade() .. " x " .. itemVenda:getProduto():getNome() .. " de R$" .. itemVenda:getValor()  ..", "
+    end
+    return produtos
 end
+
+function Venda:toString()
+    return "Código: " .. self.numero .. ", Cliente: " .. self.cliente:getNome() .. ", Valor: R$" .. self:total() .. ", Data: " .. self.data .. ", Itens: " .. self:getProdutos()
+end
+
